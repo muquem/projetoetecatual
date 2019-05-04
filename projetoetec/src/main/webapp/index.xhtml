@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Pagina de cadastro ETEC</title>
+</h:head>
+
+<h:body>
+
+</h:body>
+
+<p:commandButton id="btnNovo" value="Novo" icon="ui-icon-plue" />
+
+
+<p:dialog widgetVar="dgLoader" header="Inclur etec" modal="true" resizable="false"
+	showHeader="true">
+	
+	<p:ajaxStatus onstart="PF('dgLoader').show()"
+	onsuccess="PF('dgLoader').hide()" />
+
+<p:growl id="msgs" widgetVar="msg" showDetail="false" autoUpdate="true"
+	sticky="false" life="7500" />
+
+	<p:graphicImage name="ajax-loader.gif" library="library" />
+
+	<h:panelGrid columns="2">
+
+		<h:outputText value="Nome:" />
+		<p:inputText id="inNome" label="Nome" required="true" maxlength="50" />
+
+
+		<h:outputText value="Código:" />
+		<p:inputText id="inCodigo" label="Código" required="true"
+			maxlength="20" />
+
+
+		<h:outputText value="CEP:" />
+		<p:inputText id="inCEP" label="CEP" required="true" maxlength="30" />
+
+
+		<h:outputText value="Endereço:" />
+		<p:inputText id="inEndereço" label="Endereço" required="true"
+			maxlength="50" />
+
+
+		<h:outputText value="Bairro:" />
+		<p:inputText id="inBairro" label="Bairro" required="true"
+			maxlength="40" />
+
+
+		<h:outputText value="Cidade:" />
+		<p:inputText id="inCidade" label="Cidade" required="true"
+			maxlength="45" />
+
+
+
+
+	</h:panelGrid>
+
+	<f:facet name="footer">
+		<p:outputPanel layout="block" style="text-align:center">
+
+			<p:commandButton value="Confirmar" icon="ui-icon-check" />
+
+			<p:commandButton value="Cancelar" icon="ui-icon-close"
+				oncomplete="PF('dgCliente').hide();" />
+
+		</p:outputPanel>
+	</f:facet>
+</p:dialog>
+
+<p:ajaxStatus onstart="PF('dgLoader').show()"
+	onsuccess="PF('dgLoader').hide()" />
+
+<p:growl id="msgs" widgetVar="msg" showDetail="false" autoUpdate="true"
+	sticky="false" life="7500" />
+
+
+
+</html>
