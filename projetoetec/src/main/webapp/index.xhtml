@@ -7,78 +7,160 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Pagina de cadastro ETEC</title>
+
+
+	<!-- Adicionando Javascript -->
+	<script type="text/javascript">
+		function limpa_formulário_cep() {
+			//Limpa valores do formulário de cep.
+			document.getElementById('form:Endereco').value = ("");
+			document.getElementById('form:Bairro').value = ("");
+			document.getElementById('form:Cidade').value = ("");
+
+		}
+
+		function meu_callback(conteudo) {
+			if (!("erro" in conteudo)) {
+				//Atualiza os campos com os valores.
+				document.getElementById('form:Endereco').value = (conteudo.logradouro);
+				document.getElementById('form:Bairro').value = (conteudo.bairro);
+				document.getElementById('form:Cidade').value = (conteudo.localidade);
+
+			} //end if.
+			else {
+				//CEP não Encontrado.
+				limpa_formulário_cep();
+				alert("CEP não encontrado.");
+			}
+		}
+
+		function pesquisacep(valor) {
+
+			//Nova variável "cep" somente com dígitos.
+			var cep = valor.replace(/\D/g, '');
+
+			//Verifica se campo cep possui valor informado.
+			if (cep != "") {
+
+				//Expressão regular para validar o CEP.
+				var validacep = /^[0-9]{8}$/;
+
+				//Valida o formato do CEP.
+				if (validacep.test(cep)) {
+
+				
+
+					//Cria um elemento javascript.
+					var script = document.createElement('script');
+
+					//Sincroniza com o callback.
+					script.src = 'https://viacep.com.br/ws/' + cep
+							+ '/json/?callback=meu_callback';
+
+					//Insere script no documento e carrega o conteúdo.
+					document.body.appendChild(script);
+
+				} //end if.
+				else {
+					//cep é inválido.
+					limpa_formulário_cep();
+					alert("Formato de CEP inválido.");
+				}
+			} //end if.
+			else {
+				//cep sem valor, limpa formulário.
+				limpa_formulário_cep();
+			}
+		};
+	</script>
+
 </h:head>
 
 <h:body>
 
-</h:body>
+	<p:growl id="msgs" widgetVar="msg" showDetail="false" autoUpdate="true"
+		sticky="false" life="7500" />
 
-<p:commandButton id="btnNovo" value="Novo" icon="ui-icon-plue" />
+	<p:commandButton id="btnNovo" value="Novo" icon="ui-icon-plue"
+		oncomplete="PF('dgInclusao').show()" immediate="true"/>
+
+	<h:form id="form">
+		<p:dialog widgetVar="dgInclusao" header="Incluir etec" modal="true"
+			resizable="false" showHeader="true">
 
 
-<p:dialog widgetVar="dgLoader" header="Inclur etec" modal="true" resizable="false"
-	showHeader="true">
-	
+			
+			<h:panelGrid columns="2">
+
+				<h:outputText value="Nome:" />
+				<p:inputText id="Nome" label="Nome" required="true" maxlength="50"
+					value="#{cadastroMB.edit.nome}" />
+
+
+				<h:outputText value="Código:" />
+				<p:inputText id="Codigo" label="Código" required="true"
+					maxlength="20" value="#{cadastroMB.edit.codigo}" />
+
+
+				<h:outputText value="CEP:" />
+				<p:inputText id="CEP" label="CEP" required="true" maxlength="30"
+					value="#{cadastroMB.edit.cep}" onblur="pesquisacep(this.value)"/>
+
+
+				<h:outputText value="Endereço:" />
+				<p:inputText id="Endereco" label="Endereço" required="true"
+					maxlength="50" value="#{cadastroMB.edit.endereco}" />
+
+
+				<h:outputText value="Bairro:" />
+				<p:inputText id="Bairro" label="Bairro" required="true"
+					maxlength="40" value="#{cadastroMB.edit.bairro}" />
+
+
+				<h:outputText value="Cidade:" />
+				<p:inputText id="Cidade" label="Cidade" required="true"
+					maxlength="45" value="#{cadastroMB.edit.cidade}" />
+
+
+
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:outputPanel layout="block" style="text-align:center">
+
+					<p:commandButton value="Confirmar" icon="ui-icon-check"
+						update=":msgs form" actionListener="#{cadastroMB.onSave()}" />
+
+
+
+					<p:commandButton value="Cancelar" icon="ui-icon-close"
+						oncomplete="PF('dgInclusao').hide();" />
+
+				</p:outputPanel>
+			</f:facet>
+		</p:dialog>
+
+	</h:form>
+
 	<p:ajaxStatus onstart="PF('dgLoader').show()"
-	onsuccess="PF('dgLoader').hide()" />
+		onsuccess="PF('dgLoader').hide()" />
 
-<p:growl id="msgs" widgetVar="msg" showDetail="false" autoUpdate="true"
-	sticky="false" life="7500" />
-
-	<p:graphicImage name="ajax-loader.gif" library="library" />
-
-	<h:panelGrid columns="2">
-
-		<h:outputText value="Nome:" />
-		<p:inputText id="inNome" label="Nome" required="true" maxlength="50" />
+	<p:dialog widgetVar="dgLoader" header="Incluir etec" modal="true"
+		resizable="false" showHeader="false">
 
 
-		<h:outputText value="Código:" />
-		<p:inputText id="inCodigo" label="Código" required="true"
-			maxlength="20" />
-
-
-		<h:outputText value="CEP:" />
-		<p:inputText id="inCEP" label="CEP" required="true" maxlength="30" />
-
-
-		<h:outputText value="Endereço:" />
-		<p:inputText id="inEndereço" label="Endereço" required="true"
-			maxlength="50" />
-
-
-		<h:outputText value="Bairro:" />
-		<p:inputText id="inBairro" label="Bairro" required="true"
-			maxlength="40" />
-
-
-		<h:outputText value="Cidade:" />
-		<p:inputText id="inCidade" label="Cidade" required="true"
-			maxlength="45" />
+		<p:graphicImage name="ajax-loader.gif" library="library" />
+	</p:dialog>
 
 
 
 
-	</h:panelGrid>
 
-	<f:facet name="footer">
-		<p:outputPanel layout="block" style="text-align:center">
 
-			<p:commandButton value="Confirmar" icon="ui-icon-check" />
 
-			<p:commandButton value="Cancelar" icon="ui-icon-close"
-				oncomplete="PF('dgCliente').hide();" />
 
-		</p:outputPanel>
-	</f:facet>
-</p:dialog>
-
-<p:ajaxStatus onstart="PF('dgLoader').show()"
-	onsuccess="PF('dgLoader').hide()" />
-
-<p:growl id="msgs" widgetVar="msg" showDetail="false" autoUpdate="true"
-	sticky="false" life="7500" />
-
+</h:body>
 
 
 </html>

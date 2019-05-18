@@ -1,4 +1,7 @@
-package br.com.projetoetec.view;
+package br.com.projetoetec.projetoetec.view;
+
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -6,8 +9,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.etechoracio.common.view.BaseMB;
-import br.com.projetoetec.business.CadastroSB;
-import br.com.projetoetec.model.Cadastro;
+import br.com.projetoetec.projetoetec.business.CadastroSB;
+import br.com.projetoetec.projetoetec.model.Cadastro;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,13 +22,16 @@ import lombok.Setter;
 public class CadastroMB extends BaseMB {
 	
 	@Autowired
-	private CadastroSB cadastrosb;
+	private CadastroSB cadastroSB;
 	
 	private Cadastro edit = new Cadastro();
 	
 	public void onSave() {
+		cadastroSB.save(edit);
+		showInsertMessage();
 	
 	}
-			
+	
+	
 
 }

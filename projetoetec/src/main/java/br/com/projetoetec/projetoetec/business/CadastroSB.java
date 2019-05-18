@@ -1,20 +1,20 @@
-package br.com.projetoetec.business;
+package br.com.projetoetec.projetoetec.business;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.etechoracio.common.business.BaseSB;
-import br.com.projetoetec.model.Cadastro;
+import br.com.projetoetec.projetoetec.model.Cadastro;
 
 @Service
 public class CadastroSB extends BaseSB{
 	
-	private br.com.projetoetec.dao.CadastroDAO CadastroDAO;
+	private br.com.projetoetec.projetoetec.dao.CadastroDAO CadastroDAO;
 	
 	@Override
 	protected void postConstructImpl() {
-		CadastroDAO  = getDAO(br.com.projetoetec.dao.CadastroDAO.class);
+		CadastroDAO  = getDAO(br.com.projetoetec.projetoetec.dao.CadastroDAO.class);
 
 	}
 
