@@ -26,9 +26,17 @@ public class CadastroMB extends BaseMB {
 	
 	private Cadastro edit = new Cadastro();
 	
+	
+	
 	public void onSave() {
-		cadastroSB.save(edit);
-		showInsertMessage();
+		try {
+			cadastroSB.save(edit);
+			showInsertMessage();
+			
+		} catch (Exception e) {
+			showErrorMessage(e.getMessage());
+		}
+		
 	
 	}
 	

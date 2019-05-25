@@ -48,8 +48,6 @@
 				//Valida o formato do CEP.
 				if (validacep.test(cep)) {
 
-				
-
 					//Cria um elemento javascript.
 					var script = document.createElement('script');
 
@@ -82,15 +80,18 @@
 		sticky="false" life="7500" />
 
 	<p:commandButton id="btnNovo" value="Novo" icon="ui-icon-plue"
-		oncomplete="PF('dgInclusao').show()" immediate="true"/>
+		oncomplete="PF('dgInclusao').show()" immediate="true" />
 
 	<h:form id="form">
 		<p:dialog widgetVar="dgInclusao" header="Incluir etec" modal="true"
 			resizable="false" showHeader="true">
 
 
-			
+
 			<h:panelGrid columns="2">
+
+
+
 
 				<h:outputText value="Nome:" />
 				<p:inputText id="Nome" label="Nome" required="true" maxlength="50"
@@ -104,7 +105,7 @@
 
 				<h:outputText value="CEP:" />
 				<p:inputText id="CEP" label="CEP" required="true" maxlength="30"
-					value="#{cadastroMB.edit.cep}" onblur="pesquisacep(this.value)"/>
+					value="#{cadastroMB.edit.cep}" onblur="pesquisacep(this.value)" />
 
 
 				<h:outputText value="Endereço:" />
@@ -120,10 +121,6 @@
 				<h:outputText value="Cidade:" />
 				<p:inputText id="Cidade" label="Cidade" required="true"
 					maxlength="45" value="#{cadastroMB.edit.cidade}" />
-
-
-
-
 			</h:panelGrid>
 
 			<f:facet name="footer">
