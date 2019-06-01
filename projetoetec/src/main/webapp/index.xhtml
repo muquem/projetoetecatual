@@ -87,10 +87,7 @@
 			resizable="false" showHeader="true">
 
 
-
 			<h:panelGrid columns="2">
-
-
 
 
 				<h:outputText value="Nome:" />
@@ -130,7 +127,6 @@
 						update=":msgs form" actionListener="#{cadastroMB.onSave()}" />
 
 
-
 					<p:commandButton value="Cancelar" icon="ui-icon-close"
 						oncomplete="PF('dgInclusao').hide();" />
 
@@ -146,17 +142,68 @@
 	<p:dialog widgetVar="dgLoader" header="Incluir etec" modal="true"
 		resizable="false" showHeader="false">
 
-
 		<p:graphicImage name="ajax-loader.gif" library="library" />
+
 	</p:dialog>
+	<br />
+	<p:panel>
+
+		<p:panel header="Registros" id="pnlResultado"
+			style="width:98%; border:0">
+
+			<p:dataTable id="tblRegistros" var="xau"
+				value="#{cadastroMB.registros}"
+				emptyMessage="Nenhum registro encontrado" reflow="true"
+				paginator="true" rows="10" rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Código">
+
+					<h:outputText value="#{xau.codigo}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="ETEC">
+
+					<h:outputText value="#{xau.nome}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="CEP">
+
+					<h:outputText value="#{xau.cep}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Endereço">
+
+					<h:outputText value="#{xau.endereco}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Bairro">
+
+					<h:outputText value="#{xau.bairro}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Cidade">
+
+					<h:outputText value="#{xau.cidade}"></h:outputText>
+				</p:column>
 
 
+				<p:column headerText="Alterações">
+					<p:commandButton id="btnExcluir" process="@this"
+						actionListener="#{cadastroMB.onRemove(xau)}" update="tblRegistros" icon="ui-icon-close"
+						title="Excluir">
+					</p:commandButton>
 
+					<p:commandButton id="btnEditar" icon="ui-icon-pencil" actionListener="#{cadastroMB.onUpdate(xau)}" 
+									 update="tblRegistros"
+									 process="tblRegistros"
+									 oncomplete="PF('dgInclusao').show()"
+						title="Editar">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
 
-
-
-
-
+		</p:panel>
+	</p:panel>
 </h:body>
 
 

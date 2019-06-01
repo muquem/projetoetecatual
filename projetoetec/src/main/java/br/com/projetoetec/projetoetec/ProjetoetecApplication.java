@@ -18,7 +18,5 @@ public class ProjetoetecApplication {
 	public ServletRegistrationBean<FacesServlet> servletRegistrationBean(){
 		return new ServletRegistrationBean<FacesServlet>(new FacesServlet(), "*.xhtml");
 	}
-		
-	
 
 }
